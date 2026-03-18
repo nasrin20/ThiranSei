@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ThiranSei — Empowering Small Business</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --navy: #0B1D3A;
+      --gold: #C9A84C;
+      --gold-light: #E8C97A;
+      --cream: #F8F4EE;
+      --white: #FFFFFF;
+      --gray: #6B7A8D;
+      --light-gray: #EEF1F5;
+      --dark: #080F1E;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--cream);
+      color: var(--navy);
+      overflow-x: hidden;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 5%;
+      background: rgba(11, 29, 58, 0.97);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(201,168,76,0.2);
+      animation: slideDown 0.7s ease forwards;
+    }
+
+    @keyframes slideDown {
+      from { transform: translateY(-100%); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--white);
+      letter-spacing: 0.02em;
+    }
+
+    .nav-logo span { color: var(--gold); }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: rgba(255,255,255,0.75);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      transition: color 0.3s;
+    }
+
+    .nav-links a:hover { color: var(--gold); }
+
+    .nav-cta {
+      background: var(--gold);
+      color: var(--navy) !important;
+      padding: 0.55rem 1.4rem;
+      border-radius: 4px;
+      font-weight: 600 !important;
+      transition: background 0.3s !important;
+    }
+
+    .nav-cta:hover { background: var(--gold-light) !important; color: var(--navy) !important; }
+
+    /* HERO */
+    #hero {
+      min-height: 100vh;
+      background: var(--navy);
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      padding: 8rem 5% 5rem;
+    }
+
+    .hero-bg-lines {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(201,168,76,0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(201,168,76,0.06) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+
+    .hero-glow {
+      position: absolute;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(201,168,76,0.12) 0%, transparent 70%);
+      top: -100px; right: -100px;
+      border-radius: 50%;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 750px;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(201,168,76,0.15);
+      border: 1px solid rgba(201,168,76,0.4);
+      color: var(--gold);
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.4rem 1rem;
+      border-radius: 2px;
+      margin-bottom: 2rem;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.3s ease forwards;
+    }
+
+    .hero-badge::before {
+      content: '';
+      width: 6px; height: 6px;
+      background: var(--gold);
+      border-radius: 50%;
+    }
+
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.8rem, 5.5vw, 5rem);
+      font-weight: 900;
+      color: var(--white);
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.5s ease forwards;
+    }
+
+    .hero-title .accent { color: var(--gold); }
+
+    .hero-subtitle {
+      font-size: 1.15rem;
+      color: rgba(255,255,255,0.65);
+      line-height: 1.75;
+      max-width: 560px;
+      margin-bottom: 2.5rem;
+      font-weight: 300;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.7s ease forwards;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.9s ease forwards;
+    }
+
+    .btn-primary {
+      background: var(--gold);
+      color: var(--navy);
+      padding: 0.85rem 2rem;
+      border-radius: 4px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      text-decoration: none;
+      letter-spacing: 0.03em;
+      transition: all 0.3s;
+      border: 2px solid var(--gold);
+    }
+
+    .btn-primary:hover {
+      background: var(--gold-light);
+      border-color: var(--gold-light);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(201,168,76,0.3);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--white);
+      padding: 0.85rem 2rem;
+      border-radius: 4px;
+      font-weight: 500;
+      font-size: 0.95rem;
+      text-decoration: none;
+      border: 2px solid rgba(255,255,255,0.25);
+      transition: all 0.3s;
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+    }
+
+    .hero-stats {
+      position: absolute;
+      bottom: 3rem; right: 5%;
+      display: flex;
+      gap: 3rem;
+      opacity: 0;
+      animation: fadeUp 0.8s 1.1s ease forwards;
+    }
+
+    .stat { text-align: right; }
+    .stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--gold);
+      line-height: 1;
+    }
+    .stat-label {
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.5);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-top: 0.3rem;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(28px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* SECTION COMMON */
+    section { padding: 7rem 5%; }
+
+    .section-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.8rem;
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      font-weight: 700;
+      color: var(--navy);
+      line-height: 1.2;
+      margin-bottom: 1.2rem;
+    }
+
+    .section-sub {
+      font-size: 1.05rem;
+      color: var(--gray);
+      line-height: 1.75;
+      max-width: 580px;
+      font-weight: 300;
+    }
+
+    /* ABOUT */
+    #about {
+      background: var(--white);
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+      align-items: center;
+      margin-top: 4rem;
+    }
+
+    .about-image-block {
+      position: relative;
+    }
+
+    .about-card {
+      background: var(--navy);
+      border-radius: 8px;
+      padding: 3rem;
+      color: var(--white);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .about-card::before {
+      content: '';
+      position: absolute;
+      top: 0; right: 0;
+      width: 200px; height: 200px;
+      background: radial-gradient(circle, rgba(201,168,76,0.2) 0%, transparent 70%);
+    }
+
+    .about-card-quote {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      font-weight: 600;
+      line-height: 1.5;
+      margin-bottom: 1.5rem;
+      position: relative;
+    }
+
+    .about-card-quote::before {
+      content: '"';
+      font-size: 4rem;
+      color: var(--gold);
+      line-height: 0;
+      position: absolute;
+      top: 1rem;
+      left: -0.5rem;
+      font-family: 'Playfair Display', serif;
+    }
+
+    .about-card-quote p { padding-left: 1.5rem; }
+
+    .about-tag {
+      display: inline-block;
+      background: rgba(201,168,76,0.15);
+      color: var(--gold);
+      font-size: 0.8rem;
+      padding: 0.3rem 0.8rem;
+      border-radius: 2px;
+      font-weight: 500;
+    }
+
+    .about-values {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .value-item {
+      padding: 1.5rem;
+      border: 1px solid var(--light-gray);
+      border-radius: 6px;
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+
+    .value-item:hover {
+      border-color: var(--gold);
+      box-shadow: 0 4px 20px rgba(201,168,76,0.1);
+    }
+
+    .value-icon {
+      font-size: 1.5rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .value-title {
+      font-weight: 600;
+      font-size: 0.95rem;
+      margin-bottom: 0.3rem;
+      color: var(--navy);
+    }
+
+    .value-desc {
+      font-size: 0.85rem;
+      color: var(--gray);
+      line-height: 1.5;
+    }
+
+    /* PRODUCT / VISION */
+    #product {
+      background: var(--cream);
+    }
+
+    .product-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 4rem;
+      flex-wrap: wrap;
+      gap: 2rem;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+
+    .feature-card {
+      background: var(--white);
+      border-radius: 8px;
+      padding: 2.5rem;
+      border: 1px solid rgba(11,29,58,0.08);
+      transition: all 0.35s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .feature-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 3px;
+      background: var(--gold);
+      transform: scaleX(0);
+      transition: transform 0.35s;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 16px 40px rgba(11,29,58,0.1);
+    }
+
+    .feature-card:hover::after { transform: scaleX(1); }
+
+    .feature-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 3rem;
+      font-weight: 900;
+      color: rgba(201,168,76,0.2);
+      line-height: 1;
+      margin-bottom: 1rem;
+    }
+
+    .feature-title {
+      font-weight: 600;
+      font-size: 1.05rem;
+      color: var(--navy);
+      margin-bottom: 0.6rem;
+    }
+
+    .feature-desc {
+      font-size: 0.9rem;
+      color: var(--gray);
+      line-height: 1.65;
+    }
+
+    .vision-banner {
+      margin-top: 4rem;
+      background: var(--navy);
+      border-radius: 12px;
+      padding: 4rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+      flex-wrap: wrap;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .vision-banner::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: linear-gradient(rgba(201,168,76,0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(201,168,76,0.05) 1px, transparent 1px);
+      background-size: 40px 40px;
+    }
+
+    .vision-text { position: relative; }
+
+    .vision-text h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      color: var(--white);
+      margin-bottom: 0.5rem;
+    }
+
+    .vision-text p {
+      color: rgba(255,255,255,0.6);
+      font-size: 1rem;
+    }
+
+    /* CONTACT */
+    #contact {
+      background: var(--white);
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 5rem;
+      margin-top: 4rem;
+      align-items: start;
+    }
+
+    .contact-info h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      margin-bottom: 1rem;
+      color: var(--navy);
+    }
+
+    .contact-info p {
+      color: var(--gray);
+      line-height: 1.75;
+      margin-bottom: 2rem;
+    }
+
+    .contact-detail {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      margin-bottom: 1rem;
+      font-size: 0.95rem;
+      color: var(--navy);
+    }
+
+    .contact-detail-icon {
+      width: 38px; height: 38px;
+      background: var(--light-gray);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+
+    .contact-form {
+      background: var(--cream);
+      padding: 3rem;
+      border-radius: 10px;
+    }
+
+    .form-group { margin-bottom: 1.4rem; }
+
+    .form-group label {
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--navy);
+      margin-bottom: 0.5rem;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      padding: 0.85rem 1rem;
+      border: 1.5px solid rgba(11,29,58,0.12);
+      border-radius: 5px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.95rem;
+      color: var(--navy);
+      background: var(--white);
+      outline: none;
+      transition: border-color 0.3s;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      border-color: var(--gold);
+    }
+
+    .form-group textarea { resize: vertical; min-height: 120px; }
+
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+
+    /* FOOTER */
+    footer {
+      background: var(--dark);
+      padding: 3rem 5%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+    }
+
+    .footer-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--white);
+    }
+
+    .footer-logo span { color: var(--gold); }
+
+    .footer-copy {
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.4);
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 1.8rem;
+    }
+
+    .footer-links a {
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.4);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .footer-links a:hover { color: var(--gold); }
+
+    /* DIVIDER */
+    .gold-divider {
+      width: 50px;
+      height: 3px;
+      background: var(--gold);
+      margin-bottom: 1.5rem;
+    }
+
+    /* SCROLL REVEAL */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 900px) {
+      .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .features-grid { grid-template-columns: 1fr 1fr; }
+      .hero-stats { position: static; margin-top: 3rem; justify-content: flex-start; }
+      nav { padding: 1rem 4%; }
+      .nav-links { gap: 1.5rem; }
+    }
+
+    @media (max-width: 600px) {
+      .features-grid { grid-template-columns: 1fr; }
+      .about-values { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Thiran<span>Sei</span></div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#product">Product</a></li>
+    <li><a href="#contact" class="nav-cta">Get in Touch</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg-lines"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-content">
+    <div class="hero-badge">Empowering Small Business Globally</div>
+    <h1 class="hero-title">
+      Your Business.<br>
+      <span class="accent">Simplified.</span> Amplified.
+    </h1>
+    <p class="hero-subtitle">
+      ThiranSei builds intelligent tools that help small business owners worldwide run smarter, grow faster, and focus on what truly matters — their vision.
+    </p>
+    <div class="hero-actions">
+      <a href="#product" class="btn-primary">See Our Vision</a>
+      <a href="#contact" class="btn-secondary">Partner With Us</a>
+    </div>
+  </div>
+  <div class="hero-stats">
+    <div class="stat">
+      <div class="stat-num">400M+</div>
+      <div class="stat-label">SMBs Worldwide</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">Global</div>
+      <div class="stat-label">Market Focus</div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-label">Who We Are</div>
+  <div class="gold-divider"></div>
+  <div class="about-grid">
+    <div class="about-image-block reveal">
+      <div class="about-card">
+        <div class="about-card-quote">
+          <p>ThiranSei means "Express your skill, take action." That's exactly what we help every small business owner do.</p>
+        </div>
+        <span class="about-tag">Founded with Purpose</span>
+      </div>
+    </div>
+    <div class="reveal">
+      <div class="section-title">Built for the Builders Who Keep the World Running</div>
+      <p class="section-sub">ThiranSei is a global startup on a mission to give small business owners the tools, clarity, and confidence they need to thrive — without the complexity of enterprise software.</p>
+      <div class="about-values">
+        <div class="value-item">
+          <div class="value-icon">🎯</div>
+          <div class="value-title">Clarity First</div>
+          <div class="value-desc">We turn complexity into simple, actionable insights.</div>
+        </div>
+        <div class="value-item">
+          <div class="value-icon">🌍</div>
+          <div class="value-title">Globally Minded</div>
+          <div class="value-desc">Built for every small business, in every corner of the world.</div>
+        </div>
+        <div class="value-item">
+          <div class="value-icon">⚡</div>
+          <div class="value-title">Action-Driven</div>
+          <div class="value-desc">Tools that don't just report — they guide your next move.</div>
+        </div>
+        <div class="value-item">
+          <div class="value-icon">🤝</div>
+          <div class="value-title">Owner-Centric</div>
+          <div class="value-desc">Designed with real business owners, not just for them.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCT / VISION -->
+<section id="product">
+  <div class="product-header">
+    <div>
+      <div class="section-label">Our Product & Vision</div>
+      <div class="gold-divider"></div>
+      <div class="section-title">Tools That Work<br>As Hard As You Do</div>
+    </div>
+    <p class="section-sub reveal">We're building the operating system for small businesses — starting with the tools that matter most.</p>
+  </div>
+
+  <div class="features-grid">
+    <div class="feature-card reveal">
+      <div class="feature-num">01</div>
+      <div class="feature-title">Business Health Dashboard</div>
+      <div class="feature-desc">Get a plain-English score of your business performance every week — income, expenses, and cash flow made simple.</div>
+    </div>
+    <div class="feature-card reveal">
+      <div class="feature-num">02</div>
+      <div class="feature-title">Smart Invoicing & Payments</div>
+      <div class="feature-desc">Create professional invoices in seconds, auto-remind clients, and get paid faster — all in one place.</div>
+    </div>
+    <div class="feature-card reveal">
+      <div class="feature-num">03</div>
+      <div class="feature-title">Customer Relationship Manager</div>
+      <div class="feature-desc">Track every client, conversation, and opportunity without the complexity of enterprise CRM tools.</div>
+    </div>
+    <div class="feature-card reveal">
+      <div class="feature-num">04</div>
+      <div class="feature-title">AI-Powered Proposals</div>
+      <div class="feature-desc">Generate winning quotes and proposals based on your past work — with a single click.</div>
+    </div>
+    <div class="feature-card reveal">
+      <div class="feature-num">05</div>
+      <div class="feature-title">Expense & Tax Tracker</div>
+      <div class="feature-desc">Categorize expenses automatically and stay tax-ready year-round without hiring an accountant.</div>
+    </div>
+    <div class="feature-card reveal">
+      <div class="feature-num">06</div>
+      <div class="feature-title">Growth Insights</div>
+      <div class="feature-desc">Actionable weekly tips and benchmarks based on your business data to help you grow with confidence.</div>
+    </div>
+  </div>
+
+  <div class="vision-banner reveal">
+    <div class="vision-text">
+      <h3>Our 2025 Vision: 1 Million Small Businesses, Empowered.</h3>
+      <p>We're just getting started. ThiranSei is building for the long game.</p>
+    </div>
+    <a href="#contact" class="btn-primary" style="position:relative; white-space:nowrap;">Join the Journey</a>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-label">Get in Touch</div>
+  <div class="gold-divider"></div>
+  <div class="section-title">Let's Build Something<br>Meaningful Together</div>
+  <div class="contact-grid">
+    <div class="reveal">
+      <div class="contact-info">
+        <h3>Whether you're a potential customer, partner, or investor — we'd love to hear from you.</h3>
+        <p>ThiranSei is actively seeking early adopters, strategic partners, and collaborators who believe in empowering small businesses globally.</p>
+        <div class="contact-detail">
+          <div class="contact-detail-icon">✉️</div>
+          hello@thiransei.com
+        </div>
+        <div class="contact-detail">
+          <div class="contact-detail-icon">🌐</div>
+          www.thiransei.com
+        </div>
+        <div class="contact-detail">
+          <div class="contact-detail-icon">💼</div>
+          linkedin.com/company/thiransei
+        </div>
+      </div>
+    </div>
+    <div class="contact-form reveal">
+      <div class="form-row">
+        <div class="form-group">
+          <label>First Name</label>
+          <input type="text" placeholder="John" />
+        </div>
+        <div class="form-group">
+          <label>Last Name</label>
+          <input type="text" placeholder="Smith" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Email Address</label>
+        <input type="email" placeholder="john@company.com" />
+      </div>
+      <div class="form-group">
+        <label>I am a...</label>
+        <select>
+          <option>Potential Customer</option>
+          <option>Strategic Partner</option>
+          <option>Investor</option>
+          <option>Early Adopter</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Message</label>
+        <textarea placeholder="Tell us about yourself or your business..."></textarea>
+      </div>
+      <button class="btn-primary" style="width:100%; cursor:pointer; border:none; font-family:'DM Sans',sans-serif;" onclick="alert('Thank you! We\'ll be in touch soon.')">Send Message</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Thiran<span>Sei</span></div>
+  <div class="footer-copy">© 2025 ThiranSei. All rights reserved.</div>
+  <div class="footer-links">
+    <a href="#hero">Home</a>
+    <a href="#about">About</a>
+    <a href="#product">Product</a>
+    <a href="#contact">Contact</a>
+  </div>
+</footer>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 100);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  reveals.forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
